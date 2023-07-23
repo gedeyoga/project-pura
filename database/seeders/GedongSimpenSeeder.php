@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\GedongSimpen;
 use App\Models\Pura;
+use App\Models\PuraNew;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
