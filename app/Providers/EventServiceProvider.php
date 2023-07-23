@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\SensorGedongActive;
+use App\Events\SensorGedongNotActive;
+use App\Listeners\SensorGedongActiveListener;
+use App\Listeners\SensorGedongNotActiveListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +21,13 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        SensorGedongActive::class => [
+            SensorGedongActiveListener::class,
+        ],
+        SensorGedongNotActive::class => [
+            SensorGedongNotActiveListener::class
         ],
     ];
 
