@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
-Route::post('/register', [RegisterController::class, 'register'])->name('api.register');
+// Route::post('/register', [RegisterController::class, 'register'])->name('api.register');
 Route::post('/alert-device', [GedongSimpenController::class, 'alertDevice'])->name('api.alertDevice');
 
 Route::middleware('auth:sanctum')->group(function() {

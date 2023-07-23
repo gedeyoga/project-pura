@@ -14,7 +14,7 @@ class JenisPuraSeeder extends Seeder
      */
     public function run()
     {
-        JenisPuraNew::truncate();
+        JenisPura::truncate();
         
         $data = [
             [
@@ -51,6 +51,6 @@ class JenisPuraSeeder extends Seeder
             ],
         ];
 
-        JenisPuraNew::insert($data);
+        JenisPura::insert($data);
     }
 }
