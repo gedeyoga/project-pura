@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\SensorGedongActive;
-use App\Events\SensorGedongNotActive;
-use App\Listeners\SensorGedongActiveListener;
-use App\Listeners\SensorGedongNotActiveListener;
+use App\Events\SensorPintuActive;
+use App\Events\SensorPintuNotActive;
+use App\Listeners\SensorPintuActiveListener;
+use App\Listeners\SensorPintuNotActiveListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,11 +23,11 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        SensorGedongActive::class => [
-            SensorGedongActiveListener::class,
+        SensorPintuActive::class => [
+            SensorPintuActiveListener::class,
         ],
-        SensorGedongNotActive::class => [
-            SensorGedongNotActiveListener::class
+        SensorPintuNotActive::class => [
+            SensorPintuNotActiveListener::class
         ],
     ];
 

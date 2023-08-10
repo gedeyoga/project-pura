@@ -4,30 +4,57 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-
-import { initializeApp } from "firebase/app";
-import { getMessaging, getToken } from "firebase/messaging";
-
-const firebaseConfig = {
-    apiKey: process.env.MIX_FIREBASE_KEY,
-    authDomain: process.env.MIX_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.MIX_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.MIX_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.MIX_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.MIX_FIREBASE_APP_ID,
-    measurementId: process.env.MIX_FIREBASE_MEASUREMENT_ID,
-};
-
-// Initialize Firebase
-const firebase_app = initializeApp(firebaseConfig);
-const messaging = getMessaging(firebase_app);
-
-    getToken(messaging).then((currentToken) => {
-        console.log(currentToken);
-    });
-
 window.Vue = require('vue').default;
+
+import ElementUI  from "element-ui";
+import locale from "element-ui/lib/locale/lang/en";
+import Vue from "vue";
+import App from "./components/core/App";
+import routes from "./routes";
+import imagePreview from "image-preview-vue";
+import "image-preview-vue/lib/imagepreviewvue.css";
+
+require('./filters');
+require('./app-vendor');
+
+window.axios = require("axios");
+
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+const token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+} else {
+    console.error(
+        "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+    );
+}
+
+const userApiToken = localStorage.getItem('token');
+
+if (userApiToken) {
+    window.axios.defaults.headers.common.Authorization = `Bearer ${userApiToken}`;
+} else {
+    console.error("User API token not found in a meta tag.");
+}
+
+Vue.use(ElementUI, { locale });
+Vue.use(imagePreview);
+
+let base_url = document.head.querySelector('meta[name="base-url"]');
+
+if(base_url) {
+    base_url = base_url.content;
+}
+Vue.prototype.$url = base_url;
+Vue.prototype.$csrfToken = token;
 
 /**
  * The following block of code may be used to automatically register your
@@ -40,14 +67,44 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
 const app = new Vue({
-    el: '#app',
+    el: "#app",
+    router: routes,
+    render: (h) => h(App),
+});
+
+window.axios.interceptors.response.use(null, (error) => {
+    if (error.response === undefined) {
+        return;
+    }
+    if (error.response.status === 403) {
+        app.$message.error('Sesi telah berakhir!. silahkan login terlebih dahulu!');
+        axios.post(route('logout')).then((response) => {
+            window.location = response.data.redirect
+        });
+    }
+    if (error.response.status === 401) {
+        app.$message.error(
+            "Silahkan login terlebih dahulu!"
+        );
+        axios.post(route("logout")).then((response) => {
+             window.location = response.data.redirect;
+        });
+    }
+
+     if (error.response.status === 500) {
+         app.$message.error({
+             // title: app.$t("core.internal server error"),
+             message: 'Terjadi kesalahan pada sistem!',
+         });
+     }
+
+    return Promise.reject(error);
 });

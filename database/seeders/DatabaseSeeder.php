@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\GedongSimpen;
+use App\Models\SensorPintu;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,10 +17,9 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
+            RoleSeeder::class,
+            RolePermissions::class,
             UserSeeder::class,
-            JenisPuraSeeder::class,
-            // PuraSeeder::class,
-            GedongSimpenSeeder::class,
         ]);
     }
 }

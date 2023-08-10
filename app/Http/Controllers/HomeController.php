@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SensorPintu;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +25,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    public function notif(Request $request)
+    {
+        $sensor_pintu = SensorPintu::find($request->get('id'));
+        return view('notif' , [
+            'sensor' => $sensor_pintu,
+            'gambar' => $sensor_pintu->pura->detect()->orderByDesc('id')->first(),
+        ]);
     }
 }

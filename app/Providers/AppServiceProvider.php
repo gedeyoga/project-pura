@@ -2,11 +2,20 @@
 
 namespace App\Providers;
 
-use App\Models\GedongSimpen;
+use App\Models\SensorPintu;
+use App\Models\JenisPura;
+use App\Models\Pura;
+use App\Models\Role;
 use App\Models\User;
-use App\Repositories\Eloquent\EloquentGedongSimpenRepository;
+use App\Repositories\Eloquent\EloquentSensorPintuRepository;
+use App\Repositories\Eloquent\EloquentJenisPuraRepository;
+use App\Repositories\Eloquent\EloquentPuraRepository;
+use App\Repositories\Eloquent\EloquentRoleRepository;
 use App\Repositories\Eloquent\EloquentUserRepository;
-use App\Repositories\GedongSimpenRepository;
+use App\Repositories\SensorPintuRepository;
+use App\Repositories\JenisPuraRepository;
+use App\Repositories\PuraRepository;
+use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,9 +34,31 @@ class AppServiceProvider extends ServiceProvider
 
             return $repository;
         });
-        $this->app->bind(GedongSimpenRepository::class, function () {
 
-            $repository = new EloquentGedongSimpenRepository(new GedongSimpen());
+        $this->app->bind(RoleRepository::class, function () {
+
+            $repository = new EloquentRoleRepository(new Role());
+
+            return $repository;
+        });
+
+        $this->app->bind(SensorPintuRepository::class, function () {
+
+            $repository = new EloquentSensorPintuRepository(new SensorPintu());
+
+            return $repository;
+        });
+
+        $this->app->bind(PuraRepository::class, function () {
+
+            $repository = new EloquentPuraRepository(new Pura());
+
+            return $repository;
+        });
+
+        $this->app->bind(JenisPuraRepository::class, function () {
+
+            $repository = new EloquentJenisPuraRepository(new JenisPura());
 
             return $repository;
         });

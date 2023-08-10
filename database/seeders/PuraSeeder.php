@@ -18,7 +18,7 @@ class PuraSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        PuraNew::truncate();
+        Pura::truncate();
 
         $user = User::first();
 
@@ -46,7 +46,7 @@ class PuraSeeder extends Seeder
         ];
 
         foreach ($datas as $data) {
-            $pura = PuraNew::create($data);
+            $pura = Pura::create($data);
 
             $user->pura()->attach($pura);
         }

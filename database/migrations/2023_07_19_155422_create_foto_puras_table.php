@@ -15,8 +15,8 @@ class CreateFotoPurasTable extends Migration
     {
         Schema::create('foto_pura', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pura_id');
-            $table->string('fp_url');
+            $table->unsignedBigInteger('pura_id');
+            $table->text('fp_url');
             $table->text('fp_keterangan')->nullable();
             $table->timestamps();
 

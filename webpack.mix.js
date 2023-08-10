@@ -1,4 +1,6 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
+const path = require("path");
+require("laravel-mix-merge-manifest");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +13,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.alias({
+    ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"), // or 'vendor/tightenco/ziggy/dist/vue' if you're using the Vue plugin
+});
+
+mix.js("resources/js/app.js", "public/js")
+    .sass("resources/sass/app.scss", "public/css")
+    .extract(["vue", "jquery", "element-ui", "jquery.easing"])
+    .sourceMaps()
     .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .version()
+    .mergeManifest();

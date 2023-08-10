@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class UserSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         User::truncate();
 
         $data = [
@@ -30,6 +32,9 @@ class UserSeeder extends Seeder
         $data['password'] = bcrypt($data['password']);
         $user = $user_repo->create($data);
 
-        // $user_repo->createUserToken($user, 'auth_token');
+        $user_repo->createUserToken($user, 'auth_token');
+
+        $user->assignRole('admin');
+        Schema::enableForeignKeyConstraints();
     }
 }

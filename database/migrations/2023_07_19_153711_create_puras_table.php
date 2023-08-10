@@ -13,20 +13,17 @@ class CreatePurasTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('pura')) {
-            Schema::create('pura', function (Blueprint $table) {
-                $table->id();
-                $table->string('pura_nama');
-                $table->text('pura_alamat');
-                $table->double('pura_lat');
-                $table->double('pura_lng');
-                $table->unsignedInteger('jp_id');
-                $table->unsignedInteger('kel_id')->nullable();
-                $table->string('pura_ip', 100);
-                $table->enum('pura_sensor_cctv', [1, 0])->default(0);
-                $table->timestamps();
-            });
-        }
+        Schema::create('pura', function (Blueprint $table) {
+            $table->id();
+            $table->string('pura_nama');
+            $table->text('pura_alamat');
+            $table->double('pura_lat');
+            $table->double('pura_lng');
+            $table->unsignedInteger('jp_id');
+            $table->unsignedInteger('kel_id')->nullable();
+            $table->string('pura_ip', 100);
+            $table->timestamps();
+        });
         
     }
 

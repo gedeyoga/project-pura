@@ -1,8 +1,10 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "~element-ui/lib/theme-chalk/index.css";
 
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '../template/css/sb-admin-2.min.css';
+@import '../template/vendor/fontawesome-free/css/all.min.css';
