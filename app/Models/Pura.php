@@ -35,5 +35,15 @@ class Pura extends Model
         return $this->belongsTo(JenisPura::class , 'jp_id');
     }
 
+    public function kelurahan()
+    {
+        return $this->belongsTo(Village::class , 'kel_id');
+    }
+
+    public function sensor_cctv()
+    {
+        return $this->hasMany(SensorCctv::class , 'pura_id');
+    }
+
     
 }

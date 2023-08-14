@@ -98,6 +98,8 @@ class PuraController extends Controller
                         unset($foto['file']);
 
                         $data['foto_puras'][$index] = $foto;
+                    }else {
+                        $data['foto_puras'][$index]['fp_url'] = $foto['file'];
                     }
                 }
             }

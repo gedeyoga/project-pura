@@ -21,7 +21,7 @@
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
             <a
-                class="nav-link"
+                class="nav-link "
                 href="#"
                 @click.prevent="$router.push({ name: 'admin.dashboard' })"
             >
@@ -36,121 +36,76 @@
         <template
             v-if="
                 hasAccess('role.role-list') || 
-                hasAccess('user.user-list')
+                hasAccess('user.user-list') ||
+                hasAccess('jenis_pura.jenis_pura-list')
             "
         >
         <!-- Heading -->
         <div class="sidebar-heading">Master Data</div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item" v-if="hasAccess('jenis_pura.jenis_pura-list')">
             <a
-                class="nav-link collapsed"
+                class="nav-link"
                 href="#"
-                data-toggle="collapse"
-                data-target="#collapseUser"
-                aria-expanded="true"
-                aria-controls="collapseUser"
+                @click.prevent="$router.push({ name: 'jenis-puras.index' })"
+            >
+                <i class="fas fa-torii-gate"></i>
+                <span>Data Jenis Pura</span></a
+            >
+        </li>
+        <li class="nav-item" v-if="hasAccess('pura.pura-list')">
+            <a
+                class="nav-link"
+                href="#"
+                @click.prevent="$router.push({ name: 'puras.index' })"
+            >
+                <i class="fas fa-gopuram"></i>
+                <span>Data Pura</span></a
+            >
+        </li>
+        <li class="nav-item" v-if="hasAccess('sensor_pintu.sensor_pintu-list')">
+            <a
+                class="nav-link"
+                href="#"
+                @click.prevent="$router.push({ name: 'sensor-pintu.index'})"
+            >
+                <i class="fas fa-door-open"></i>
+                <span>Sensor Pintu</span></a
+            >
+        </li>
+        <li class="nav-item" v-if="hasAccess('sensor_cctv.sensor_cctv-list')">
+            <a
+                class="nav-link"
+                href="#"
+                @click.prevent="$router.push({ name: 'sensor-cctv.index'})"
+            >
+                <i class="fas fa-video"></i>
+                <span>Sensor CCTV</span></a
+            >
+        </li>
+        <li class="nav-item" v-if="hasAccess('user.user-list')">
+            <a
+                class="nav-link"
+                href="#"
+                @click.prevent="$router.push({ name: 'users.index' })"
             >
                 <i class="fas fa-users"></i>
-                <span>User</span>
-            </a>
-            <div
-                id="collapseUser"
-                class="collapse"
-                aria-labelledby="headingUtilities"
-                data-parent="#accordionSidebar"
+                <span>Kelola Pengguna</span></a
             >
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Manajemen User</h6>
-                    <a
-                        v-if="hasAccess('user.user-list')"
-                        class="collapse-item"
-                        href="#"
-                        @click.prevent="$router.push({ name: 'users.index' })"
-                        >User</a
-                    >
-                    <a
-                        v-if="hasAccess('role.role-list')"
-                        class="collapse-item"
-                        href="#"
-                        @click.prevent="$router.push({ name: 'roles.index' })"
-                        >Role</a
-                    >
-                </div>
-            </div>
         </li>
-        </template>
-
-        <template
-            v-if="
-                hasAccess('category.category-list')
-            "
-        >
-        <!-- Heading -->
-        <div class="sidebar-heading">Manajemen Content</div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item" v-if="hasAccess('role.role-list')">
             <a
-                class="nav-link collapsed"
+                class="nav-link"
                 href="#"
-                data-toggle="collapse"
-                data-target="#collapseBlog"
-                aria-expanded="true"
-                aria-controls="collapseBlog"
+                @click.prevent="$router.push({ name: 'roles.index' })"
             >
-                <i class="fas fa-users"></i>
-                <span>Blog</span>
-            </a>
-            <div
-                id="collapseBlog"
-                class="collapse"
-                aria-labelledby="headingBlog"
-                data-parent="#accordionSidebar"
+                <i class="fas fa-users-cog"></i>
+                <span>Roles</span></a
             >
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Manajemen Content</h6>
-                    <a
-                        v-if="hasAccess('post.post-list')"
-                        class="collapse-item"
-                        href="#"
-                        @click.prevent="
-                            $router.push({ name: 'posts.index' })
-                        "
-                        >Postingan</a
-                    >
-                    <a
-                        v-if="hasAccess('category.category-list')"
-                        class="collapse-item"
-                        href="#"
-                        @click.prevent="
-                            $router.push({ name: 'categories.index' })
-                        "
-                        >Kategori</a
-                    >
-                </div>
-            </div>
         </li>
+        <hr class="sidebar-divider" />
         </template>
-
-        <!-- Sidebar Message -->
-        <div class="sidebar-card d-none d-lg-flex">
-            <img
-                class="sidebar-card-illustration mb-2"
-                :src="$url + '/image/undraw_rocket.svg'"
-                alt="..."
-            />
-            <p class="text-center mb-2">
-                <strong>SB Admin Pro</strong> is packed with premium features,
-                components, and more!
-            </p>
-            <a
-                class="btn btn-success btn-sm"
-                href="https://startbootstrap.com/theme/sb-admin-pro"
-                >Upgrade to Pro!</a
-            >
-        </div>
     </ul>
     <!-- End of Sidebar -->
 </template>

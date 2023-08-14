@@ -17,7 +17,7 @@ class EloquentJenisPuraRepository extends EloquentBaseRepository implements Jeni
             })
 
             //Pencarian berdasarkan active dan tidak active
-            ->when(isset($params['jp_active']), fn ($q) => $q->where('jp_active', $params['jp_active']));
+            ->when(isset($params['jp_active']), fn ($q) => $q->whereIn('jp_active', $params['jp_active']));
 
         //jika tidak menerapkan pagination maka mereturn seluruh data
         if (!isset($params['paginate'])) {

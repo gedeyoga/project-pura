@@ -42,7 +42,7 @@ class AlertDeviceNotification extends Notification implements ShouldQueue
             ->withBody($this->message)
             ->withPriority('high')
             ->withAdditionalData([
-                'detect' => $this->pura->detect()->orderByDesc('id')->first(),
+                'detect' => $this->pura->sensor_cctv()->orderByDesc('id')->first(),
             ])
             ->asNotification([$notifiable->fcm_token]);
     }

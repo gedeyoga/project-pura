@@ -24,7 +24,6 @@
                     :model="data_user"
                     :rules="rules"
                     ref="userForm"
-                    size="small"
                     label-position="top"
                     v-loading="loading"
                 >
@@ -41,7 +40,7 @@
                             placeholder="Cth: permana0912@gmail.com"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="Role" prop="role">
+                    <el-form-item label="Role" prop="role" v-if="hasAccess('role.role-list')">
                         <el-select
                             v-model="data_user.role"
                             placeholder="Pilih role user.."
@@ -73,6 +72,31 @@
                         ></el-input>
                     </el-form-item>
 
+                    <hr class="mb-3">
+
+                    <el-checkbox
+                        v-if="hasAccess('user.user-all')"
+                        v-model="data_user.has_pura"
+                        >User memiliki pura ? 
+                    </el-checkbox>
+
+                    <el-form-item label="Pura" v-if="data_user.has_pura && hasAccess('user.user-all')" prop="pura_id" :rules="{
+                        required:true,
+                        message: 'Tidak boleh kosong.'
+                    }">
+                        <el-select
+                            v-model="data_user.pura_id"
+                            placeholder="Pilih pura"
+                        >
+                            <el-option
+                                v-for="item in pura_list"
+                                :key="item.id"
+                                :label="item.pura_nama"
+                                :value="item.id"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+
                     <el-form-item>
                         <div class="text-center mt-3">
                             <el-button
@@ -90,6 +114,8 @@
                             >
                         </div>
                     </el-form-item>
+
+                    
                 </el-form>
             </div>
         </div>
@@ -106,8 +132,11 @@ export default {
                 role: "",
                 password: "",
                 change_password: false,
+                pura_id: "",
+                has_pura: false,
             },
             show_password: false,
+            pura_list:[],
             loading: false,
             rules: {
                 name: [{ required: true, message: "Nama tidak boleh kosong!" }],
@@ -185,6 +214,11 @@ export default {
                 .then((response) => {
                     let user = response.data.data;
                     user.role = user.roles[0].name;
+                    user.has_pura = user.pura.length > 0 ? true : false;
+                    if(user.pura.length > 0) {
+                        user.pura_id = user.pura[0].id;
+                    }
+
                     delete user.roles;
                     delete user.created_at;
                     delete user.updated_at;
@@ -201,6 +235,14 @@ export default {
             }
             return axios.post(route('api.user.store') , this.data_user);
         },
+
+        fetchPura() {
+            axios
+                .get(route('api.pura.index'))
+                .then((response) => {
+                    this.pura_list = response.data.data;
+                })
+        },
     },
 
     watch: {
@@ -210,7 +252,17 @@ export default {
     },
 
     mounted() {
-        this.fetchRoles();
+        
+        if(this.hasAccess('user.user-all')) {
+            this.fetchRoles();
+            this.fetchPura();
+        } else {
+            this.data_user.role = 'user';
+            if(this.user.pura.length > 0) {
+                this.data_user.pura_id = this.user.pura[0].id;
+                this.data_user.has_pura = true;
+            }
+        }
         if (typeof this.$route.params.user == "undefined") {
             this.show_password = true;
         } else {

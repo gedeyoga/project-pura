@@ -36,6 +36,14 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             });
         }
 
+        if($request->get('pura_id')){
+
+            $users = $users->whereHas('pura' , function($query) use ($request) {
+                $query->where('id' ,  $request->get('pura_id'));
+            });
+            
+        }
+
         return $users->paginate($request->get('per_page' , 10));
     }
 

@@ -16,6 +16,8 @@ class UserTransformer extends JsonResource
     {
         $user = parent::toArray($request);
         $user['roles'] = RoleTransformer::collection($this->whenLoaded('roles'));
+        $user['pura'] = PuraTransformer::collection($this->whenLoaded('pura'));
+        
         return $user;
     }
 }

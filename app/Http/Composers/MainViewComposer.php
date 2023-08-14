@@ -10,7 +10,7 @@ class MainViewComposer {
     public function compose(View $view)
     {
         $user = Auth::user();
-        $user->load('roles.permissions');
+        $user->load('roles.permissions' , 'pura');
         $view->with('user', (new UserTransformer($user))->toJson());
     }
 }

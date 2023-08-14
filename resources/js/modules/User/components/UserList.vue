@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">List User</h1>
+            <h1 class="h3 mb-0 text-gray-800">Kelola User</h1>
             <nav aria-label="breadcrumb ">
                 <ol class="breadcrumb bg-light">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -16,7 +16,7 @@
             <div
                 class="card-header d-flex justify-content-between align-items-center"
             >
-                <span>List User</span>
+                <span>Kelola User</span>
                 <el-button
                     v-if="hasAccess('user.user-list')"
                     type="primary"
@@ -27,7 +27,7 @@
             </div>
             <div class="card-body">
                 <div class="row mb-3 align-items-end">
-                    <div class="col-md-3">
+                    <div class="col-md-3" v-if="hasAccess('role.role-list')">
                         <span class="filter-text">Filter Role</span>
                         <el-select
                             clearable
@@ -43,7 +43,18 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-3" v-if="hasAccess('user.user-all')">
+                        <label for=""><small>Filter Pura</small></label>
+                        <el-select v-model="filter.pura_id" @change="fetchData" placeholder="Pilih Jenis Pura" filterable clearable>
+                            <el-option
+                            v-for="(item, index) in pura_list"
+                            :key="index"
+                            :label="item.pura_nama"
+                            :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="col">
                         <div
                             class="btn-group float-right"
                         >
@@ -87,6 +98,11 @@
                             >
                                 {{ scope.row.name }}
                             </a>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="Pura">
+                        <template slot-scope="scope">
+                            {{ scope.row.pura.length > 0 ? scope.row.pura[0].pura_nama : '-' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="email" label="Email">
@@ -153,6 +169,7 @@ export default {
         return {
             data: [],
             tableIsLoading: false,
+            pura_list: [],
             meta: {
                 current_page: 1,
                 per_page: 10,
@@ -184,9 +201,10 @@ export default {
                     order_by: this.order_meta.order_by,
                     order: this.order_meta.order,
                     search: this.searchQuery,
-                    relations: "roles",
+                    relations: "roles,pura",
                     roles: this.filter.role,
-                    search : this.filter.search
+                    search : this.filter.search,
+                    pura_id : this.filter.pura_id
                 },
                 cancelToken: cancelSource.token,
             };
@@ -269,11 +287,32 @@ export default {
                     this.list_roles = response.data.data;
                 });
         },
+
+        fetchPura() {
+            axios
+                .get(route('api.pura.index'))
+                .then((response) => {
+                    this.pura_list = response.data.data;
+                })
+        },
     },
 
     mounted() {
+        if(this.hasAccess('user.user-all')){
+            this.fetchPura();
+        } else {
+            if(this.user.pura.length > 0) {
+                this.filter.pura_id = this.user.pura[0].id;
+            }
+        }
+
         this.fetchData();
-        this.fetchRoles();
+
+        if(this.hasAccess('role.role-list')) {
+            this.fetchRoles();
+        }
+
+        
     },
 };
 </script>

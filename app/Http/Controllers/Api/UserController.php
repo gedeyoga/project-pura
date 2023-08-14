@@ -50,7 +50,12 @@ class UserController extends Controller
         if(!isset($data['role'])) {
             $data['role'] = 'user';
         }
-        $user = $this->user_repo->createUser();
+        $user = $this->user_repo->createUser($data);
+
+        if($request->get('pura_id')) {
+            $user->pura()->attach($request->get('pura_id'));
+        }
+
         return response()->json([
             'message' => 'Tambah data user berhasil!',
             'data' => new UserTransformer($user)
@@ -65,7 +70,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->load('roles');
+        $user->load('roles', 'pura');
         return new UserTransformer($user);
     }
 
@@ -100,6 +105,11 @@ class UserController extends Controller
         }
 
         $user = $this->user_repo->updateUser($user, $data);
+
+        $user->pura()->detach();
+        if ($request->get('has_pura')) {
+            $user->pura()->attach($request->get('pura_id'));
+        }
 
         return response()->json([
             'message' => 'Berhasil memperbaharui data user!',

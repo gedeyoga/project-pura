@@ -29,6 +29,8 @@ class EloquentPuraRepository extends EloquentBaseRepository implements PuraRepos
         //Pencarian berdasarkan jenis pura
         ->when(isset($params['jp_id']), fn($q) => $q->where('jp_id' , $params['jp_id']))
 
+        ->orderBy('id' , 'desc')
+
         //Mengurutkan berdasarkan kolom order_by
         ->when(isset($params['order_by']) && isset($params['order']) && $params['order_by'] != '' && $params['order'] != '' , function($q) use ($params) {
             $q->orderBy($params['order_by'], $params['order']);

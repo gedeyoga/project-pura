@@ -12,8 +12,6 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <el-button size="mini" type="primary" icon="el-icon-view" @click="handlePreviewWebsite">Lihat Website</el-button>
-
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
                 <div class="topbar-divider d-none d-sm-block"></div>

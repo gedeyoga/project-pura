@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\SensorCctvActive;
+use App\Events\SensorCctvNotActive;
 use App\Events\SensorPintuActive;
 use App\Events\SensorPintuNotActive;
 use App\Listeners\SensorPintuActiveListener;
@@ -23,10 +25,10 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        SensorPintuActive::class => [
+        SensorCctvActive::class => [
             SensorPintuActiveListener::class,
         ],
-        SensorPintuNotActive::class => [
+        SensorCctvNotActive::class => [
             SensorPintuNotActiveListener::class
         ],
     ];

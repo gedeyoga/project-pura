@@ -13,7 +13,7 @@ class CreateSensorPintuRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user();
     }
 
     /**
@@ -24,7 +24,11 @@ class CreateSensorPintuRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'gs_nama' => 'required', 
+            'pura_id' => 'required',
+            'gs_sensor_pintu' => 'required',
+            'guard_state' => 'required', 
+            'token' => 'required',
         ];
     }
 }

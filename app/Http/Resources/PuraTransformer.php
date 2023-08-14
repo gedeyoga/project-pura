@@ -18,6 +18,10 @@ class PuraTransformer extends JsonResource
         $pura['users'] = UserTransformer::collection($this->whenLoaded('users'));
         $pura['foto_pura'] = $this->whenLoaded('foto_pura');
         $pura['jenis_pura'] = new JenisPuraTransformer($this->whenLoaded('jenis_pura'));
+        $pura['kelurahan'] = $this->whenLoaded('kelurahan');
+        $pura['district_id'] = $this->kelurahan->district->id;
+        $pura['regency_id'] = $this->kelurahan->district->regency->id;
+        $pura['province_id'] = $this->kelurahan->district->regency->province->id;
         return $pura;
     }
 }

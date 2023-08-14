@@ -13,7 +13,7 @@ class SensorPintu extends Model
     protected $table = 'sensor_pintu';
 
     protected $fillable = [
-        'gs_nama' , 'gs_sensor_pintu' , 'pura_id', 'gs_kode_sensor',
+        'gs_nama' , 'gs_sensor_pintu' , 'pura_id', 'gs_kode_sensor' , 'guard_state' , 'token',
     ];
 
     public function getAutoNumberOptions()

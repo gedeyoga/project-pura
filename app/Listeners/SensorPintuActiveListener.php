@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\SensorCctvActive;
 use App\Events\SensorPintuActive;
 use App\Notifications\AlertDeviceNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,9 +26,9 @@ class SensorPintuActiveListener
      * @param  object  $event
      * @return void
      */
-    public function handle(SensorPintuActive $event)
+    public function handle(SensorCctvActive $event)
     {
-        $pura = $event->sensor_pintu->pura;
+        $pura = $event->sensor_cctv->pura;
 
         foreach ($pura->users as $user) {
             if(!is_null($user)) {

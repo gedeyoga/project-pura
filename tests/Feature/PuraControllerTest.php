@@ -6,10 +6,12 @@ use App\Models\FotoPura;
 use App\Models\JenisPura;
 use App\Models\Pura;
 use App\Models\User;
+use App\Models\Village;
 use App\Repositories\UserRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -27,6 +29,8 @@ class PuraControllerTest extends TestCase
 
         $this->user = $data_user['user'];
         $this->token = $data_user['token'];
+
+        Artisan::call('db:seed --class=WilayahSeeder');
 
     }
     public function createUser() 
@@ -54,6 +58,7 @@ class PuraControllerTest extends TestCase
 
         $data = Pura::factory()->make([
             'jp_id' => JenisPura::factory()->create()->id,
+            'kel_id' => Village::first()->id,
         ])->toArray();
 
         $data['foto_puras'] = [
@@ -91,6 +96,7 @@ class PuraControllerTest extends TestCase
 
         $data = Pura::factory()->make([
             'jp_id' => JenisPura::factory()->create()->id,
+            'kel_id' => Village::first()->id,
         ])->toArray();
 
         $data['foto_puras'] = FotoPura::all()->toArray();
