@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\SensorPintuController;
 use App\Http\Controllers\Api\JenisPuraController;
 use App\Http\Controllers\Api\LoginController;
@@ -28,6 +29,12 @@ Route::post('/alert-device', [SensorPintuController::class, 'alertDevice'])->nam
 Route::post('/sensor-cctv', [SensorCctvController::class, 'store'])->name('api.sensor-cctv.store');
 
 Route::middleware('auth:sanctum')->group(function() {
+    //Dashboard
+    Route::group(['prefix' => 'dashboard', 'as' => 'api.dashboard'] , function() {
+        Route::get('/user', [DashboardController::class , 'dashboardUser'])->name('.user');
+        Route::get('/admin', [DashboardController::class , 'dashboardAdmin'])->name('.admin');
+    });
+
     //User
     Route::prefix('users')->apiResource('user', UserController::class, ['as' => 'api']);
 
@@ -56,6 +63,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::group(['prefix' => 'sensor-cctv', 'as' => 'api.sensor-cctv.'], function () {
         Route::get('/', [SensorCctvController::class, 'index'])->name('index');
+        Route::get('/most-used', [SensorCctvController::class, 'mostUsed'])->name('most-used');
     });
 
     //Permissions

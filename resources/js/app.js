@@ -14,6 +14,9 @@ import routes from "./routes";
 import imagePreview from "image-preview-vue";
 import "image-preview-vue/lib/imagepreviewvue.css";
 import * as VueGoogleMaps from "vue2-google-maps";
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 
 require('./filters');
 require('./app-vendor');
@@ -48,6 +51,10 @@ if (userApiToken) {
 
 Vue.use(ElementUI, { locale });
 Vue.use(imagePreview);
+Vue.use(VueSweetalert2, {
+    confirmButtonColor: "#4C71DD",
+    cancelButtonColor: "#A6A9AD",
+});
 Vue.use(VueGoogleMaps, {
     load: {
         key: "AIzaSyBMhE2JpJxYFyKAOV7ExluNGwIEBlfVeZE",

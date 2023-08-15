@@ -1,54 +1,32 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total User</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total Sensor Pintu</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total Pura</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <span>{{ getDateNow | formatDate }}</span>
         </div>
+        <dashboard-user v-if="hasAccess('dashboard.dashboard-user')"></dashboard-user>
+        <dashboard-admin v-else-if="hasAccess('dashboard.dashboard-admin')"></dashboard-admin>
     </div>
 </template>
+
+<script>
+import DashboardUser from "./DashboardUser.vue";
+import DashboardAdmin from "./DashboardAdmin.vue";
+
+export default {
+    components: {
+        DashboardUser, 
+        DashboardAdmin       
+    },
+    data() {
+        return {};
+    },
+
+    computed: {
+        getDateNow() {
+            return (new Date()).toLocaleDateString('en-ID')
+        }
+    },
+}
+</script>

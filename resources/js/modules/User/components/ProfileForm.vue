@@ -139,7 +139,7 @@ export default {
                                     message: response.data.message,
                                     type: "success",
                                 });
-                                this.$router.push({ name: "users.index" });
+                                this.$router.back();
                             })
                             .catch((response) => {
                                 this.loading = false;
@@ -163,6 +163,12 @@ export default {
                     delete user.updated_at;
                     delete user.email_verified_at;
                     this.data_user = { ...this.data_user, ...user };
+
+                    this.data_user.role = 'user';
+                    if(this.user.pura.length > 0) {
+                        this.data_user.pura_id = this.data_user.pura[0].id;
+                        this.data_user.has_pura = true;
+                    }
                 });
         },
 

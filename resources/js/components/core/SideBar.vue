@@ -37,11 +37,13 @@
             v-if="
                 hasAccess('role.role-list') || 
                 hasAccess('user.user-list') ||
-                hasAccess('jenis_pura.jenis_pura-list')
+                hasAccess('jenis_pura.jenis_pura-list') ||
+                hasAccess('sensor_pintu.sensor_pintu-list') || 
+                hasAccess('sensor_cctv.sensor_cctv-list')
             "
         >
         <!-- Heading -->
-        <div class="sidebar-heading">Master Data</div>
+        <div class="sidebar-heading">Menu</div>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item" v-if="hasAccess('jenis_pura.jenis_pura-list')">
@@ -106,6 +108,50 @@
         </li>
         <hr class="sidebar-divider" />
         </template>
+
+        <template
+            v-if="hasAccess('user.user-update') "
+        >
+        <!-- Heading -->
+        <div class="sidebar-heading">Pengguna</div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item" v-if="hasAccess('user.user-update')">
+            <a
+                class="nav-link"
+                href="#"
+                @click.prevent="$router.push({
+                     name: 'users.profile',
+                     params: {
+                        user: user.id
+                     }
+                })"
+            >
+                <i class="fas fa-user"></i>
+                <span>Profil</span></a
+            >
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                href="#"
+                @click.prevent="logoutConfirmation"
+            >
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Keluar</span></a
+            >
+        </li>
+        <hr class="sidebar-divider" />
+        </template>
     </ul>
     <!-- End of Sidebar -->
 </template>
+
+<script>
+import helpers from "./mixins/helpers";
+
+export default {
+
+    mixins: [ helpers ],
+}
+</script>

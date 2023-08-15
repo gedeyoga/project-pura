@@ -40,4 +40,9 @@ abstract class EloquentBaseRepository implements BaseRepository {
     {
         return $model->delete();
     }
+    
+    public function getModel()
+    {
+        return $this->model;
+    }
 }

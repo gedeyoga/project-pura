@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JenisPura;
 use App\Models\SensorPintu;
 use Illuminate\Database\Seeder;
 
@@ -17,9 +18,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
+            WilayahSeeder::class,
             RoleSeeder::class,
             RolePermissions::class,
             UserSeeder::class,
+            JenisPuraSeeder::class
         ]);
     }
 }

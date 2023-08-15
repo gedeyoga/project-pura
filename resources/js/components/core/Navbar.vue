@@ -65,8 +65,7 @@
                         <a
                             class="dropdown-item"
                             href="#"
-                            data-toggle="modal"
-                            data-target="#logoutModal"
+                            @click.prevent="logoutConfirmation"
                         >
                             <i
                                 class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
@@ -128,27 +127,8 @@
     </div>
 </template>
 <script>
+import helpers from './mixins/helpers';
 export default {
-    methods: {
-        logout() {
-            axios
-                .post(
-                    route("logout"),
-                    {},
-                    {
-                        headers: {
-                            Accept: "application/json", //the token is a variable which holds the token
-                        },
-                    }
-                )
-                .then((response) => {
-                    window.location.href = response.data.redirect;
-                });
-        },
-
-        handlePreviewWebsite() {
-            window.open(this.$url , '_blank');
-        }
-    },
+    mixins: [helpers],
 };
 </script>

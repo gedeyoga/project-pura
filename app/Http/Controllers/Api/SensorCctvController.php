@@ -8,6 +8,7 @@ use App\Http\Resources\SensorCctvResource;
 use App\Repositories\SensorCctvRepository;
 use App\Repositories\SensorPintuRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SensorCctvController extends Controller
 {
@@ -46,5 +47,18 @@ class SensorCctvController extends Controller
             'message' => 'Sensor Cctv berhasil ditambahkan!',
             'data' => new SensorCctvResource($pura),
         ]);
+    }
+
+    public function mostUsed(Request $request)
+    {
+        $most_sensor_cctv_active = $this->sensor_cctv_repo->getModel()
+                                        ->select(['sensor_cctv.*', DB::raw('count(sensor_cctv.id) as jumlah_active')])
+                                        ->with('pura')->where('cctv_status', 1)
+                                        ->where('created_at', 'like', date('Y-m') . '%')
+                                        ->groupBy(['gs_kode_sensor', 'pura_id'])
+                                        ->orderBy('jumlah_active', 'desc')
+                                        ->paginate($request->get('per_page'));
+
+        return SensorCctvResource::collection($most_sensor_cctv_active);
     }
 }

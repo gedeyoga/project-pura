@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\JenisPura;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class JenisPuraSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class JenisPuraSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         JenisPura::truncate();
         
         $data = [
@@ -52,5 +54,6 @@ class JenisPuraSeeder extends Seeder
         ];
 
         JenisPura::insert($data);
+        Schema::enableForeignKeyConstraints();
     }
 }

@@ -24,7 +24,33 @@ Vue.filter('formatDate' , function(value) {
 
         return split[0] + ' ' + month[split[1] - 1]  + ' ' + split[2];
     }
-})
+});
+
+Vue.filter('formatMonth' , function(value) {
+    if (value) {
+        let date_string = moment(String(value)).format("M-YYYY");
+
+        let split = date_string.split('-');
+
+        let month = [
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember",
+        ];
+
+        return month[split[0] - 1]  + ' ' + split[1];
+    }
+});
+
 Vue.filter("formatDateTime", function (value) {
     var data_month = [
         "Januari",
