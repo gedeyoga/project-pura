@@ -28,6 +28,15 @@ Route::post('/login', [LoginController::class, 'login'])->name('api.login');
 Route::post('/alert-device', [SensorPintuController::class, 'alertDevice'])->name('api.alertDevice');
 Route::post('/sensor-cctv', [SensorCctvController::class, 'store'])->name('api.sensor-cctv.store');
 
+Route::prefix('sensor-pintu')->apiResource('sensor-pintu', SensorPintuController::class, [
+    'as' => 'api',
+    'parameters' => [
+        'sensor-pintu' => 'sensor_pintu'
+    ]
+]);
+
+Route::prefix('puras')->apiResource('pura', PuraController::class, ['as' => 'api']);
+
 Route::middleware('auth:sanctum')->group(function() {
     //Dashboard
     Route::group(['prefix' => 'dashboard', 'as' => 'api.dashboard'] , function() {
@@ -40,13 +49,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
     //Role
     Route::prefix('roles')->apiResource('role', RoleController::class, ['as' => 'api']);
-    Route::prefix('puras')->apiResource('pura', PuraController::class, ['as' => 'api']);
-    Route::prefix('sensor-pintu')->apiResource('sensor-pintu', SensorPintuController::class, [
-        'as' => 'api',
-        'parameters' => [
-            'sensor-pintu' => 'sensor_pintu'
-        ]
-    ]);
+
     Route::prefix('jenis-puras')->apiResource('jenis-pura', JenisPuraController::class, [
         'as' => 'api',
         'parameters' => [

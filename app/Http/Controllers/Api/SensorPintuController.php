@@ -45,7 +45,7 @@ class SensorPintuController extends Controller
         return new SensorPintuResource($sensor_pintu);
     }
 
-    public function update(UpdateSensorPintuRequest $request, SensorPintu $sensor_pintu)
+    public function update(SensorPintu $sensor_pintu, UpdateSensorPintuRequest $request)
     {
         $data = $request->all();
 
