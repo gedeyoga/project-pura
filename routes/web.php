@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/' ,[ SensorPintuController::class , 'index'])->name('sensor-pintu.index');
         Route::get('/create' , [SensorPintuController::class , 'create'])->name('sensor-pintu.create');
         Route::get('/{pura}/edit' , [SensorPintuController::class , 'edit'])->name('sensor-pintu.edit');
+        Route::get('/{pura}/riwayat' , [SensorPintuController::class , 'edit'])->name('sensor-pintu.riwayat');
     });
 
     Route::prefix('sensor-cctv')->group(function() {

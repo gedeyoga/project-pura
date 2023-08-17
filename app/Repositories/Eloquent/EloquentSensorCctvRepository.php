@@ -30,6 +30,13 @@ class EloquentSensorCctvRepository extends EloquentBaseRepository implements Sen
             ->when(isset($params['pura_id']), fn ($q) => $q->where('pura_id', $params['pura_id']))
             ->when(isset($params['cctv_status']), fn ($q) => $q->whereIn('cctv_status', $params['cctv_status']))
 
+            ->when(isset($params['date']), function ($q) use ($params) {
+                return $q->whereBetween('created_at', [
+                    date('Y-m-d 00:00', strtotime($params['date'][0])),
+                    date('Y-m-d 23:59', strtotime($params['date'][1])),
+                ]);
+            })
+
             ->orderBy('id', 'desc')
 
             //Mengurutkan berdasarkan kolom order_by

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PuraController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SensorCctvController;
+use App\Http\Controllers\Api\SensorPintuLogController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WilayahController;
 use Illuminate\Http\Request;
@@ -44,6 +45,11 @@ Route::prefix('sensor-pintu')->apiResource('sensor-pintu', SensorPintuController
 
 Route::prefix('sensor-pintu')->group(function(){
     Route::put('/' , [SensorPintuController::class , 'ping'])->name('api.sensor-pintu.ping');
+});
+
+Route::prefix('sensor-pintu-log')->group(function() {
+    Route::get('/', [SensorPintuLogController::class, 'index'])->name('api.sensor-pintu-log.history');
+    Route::post('/', [SensorPintuLogController::class, 'store'])->name('api.sensor-pintu-log.store');
 });
 
 Route::prefix('puras')->apiResource('pura', PuraController::class, ['as' => 'api']);

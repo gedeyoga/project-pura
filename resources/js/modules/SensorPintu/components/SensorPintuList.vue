@@ -85,15 +85,16 @@
                                 "
                                 href="#"
                             >
-                                {{ scope.row.gs_nama }}
-                            </a>
+                                {{ scope.row.gs_nama }} 
+                            </a> <br>
+                            <small>{{ scope.row.gs_kode_sensor }}</small>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="gs_kode_sensor" label="Kode">
+                    <!-- <el-table-column prop="gs_kode_sensor" label="Kode">
                         <template slot-scope="scope">
                             {{ scope.row.gs_kode_sensor }}
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column prop="pura_id" label="Pura">
                         <template slot-scope="scope">
                             {{ scope.row.pura.pura_nama }}
@@ -118,6 +119,19 @@
                     <el-table-column prop="actions" label="Aksi">
                         <template slot-scope="scope">
                             <el-button-group>
+                                <el-button
+                                    v-if="hasAccess('sensor_pintu_log.sensor_pintu_log-list')"
+                                    type="success"
+                                    icon="el-icon-data-line"
+                                    @click="
+                                        $router.push({
+                                            name: 'sensor-pintu.riwayat',
+                                            params: {
+                                                sensor_pintu: scope.row.id,
+                                            },
+                                        })
+                                    "
+                                ></el-button>
                                 <el-button
                                     v-if="hasAccess('sensor_pintu.sensor_pintu-update')"
                                     type="primary"
