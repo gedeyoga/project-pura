@@ -24,6 +24,8 @@ class SensorCctvResource extends JsonResource
             'pura_id' => $this->pura_id, 
             'gs_kode_sensor' => $this->gs_kode_sensor,
             'pura' => new PuraTransformer($this->whenLoaded('pura')),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }
