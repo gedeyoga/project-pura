@@ -14,9 +14,16 @@ class SensorCctvResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = parent::toArray($request);
-        $data['pura'] = new PuraTransformer($this->whenLoaded('pura'));
+        // $data = parent::toArray($request);
+        // $data['pura'] = new PuraTransformer($this->whenLoaded('pura'));
 
-        return $data;
+        return [
+            'id' => $this->id,
+            'cctv_photo' => url($this->cctv_photo), 
+            'cctv_status' => $this->cctv_status, 
+            'pura_id' => $this->pura_id, 
+            'gs_kode_sensor' => $this->gs_kode_sensor,
+            'pura' => new PuraTransformer($this->whenLoaded('pura')),
+        ];
     }
 }
