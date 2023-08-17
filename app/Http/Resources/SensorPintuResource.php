@@ -14,6 +14,16 @@ class SensorPintuResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'pura_id' => $this->pura_id,
+            'gs_kode_sensor' => $this->gs_kode_sensor,
+            'gs_nama' => $this->gs_nama,
+            'gs_sensor_pintu' => '1',
+            'ping_at' => $this->ping_at,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'pura' => new PuraTransformer($this->whenLoaded('pura')),
+        ];
     }
 }

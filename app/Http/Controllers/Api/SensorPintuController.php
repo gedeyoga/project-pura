@@ -22,6 +22,9 @@ class SensorPintuController extends Controller
 
     public function index(Request $request)
     {
+        if($request->get('code')) {
+            return $this->code($request);
+        }
 
         $puras = $this->sensor_pintu_repo->list($request->all());
         return SensorPintuResource::collection($puras);
@@ -82,6 +85,53 @@ class SensorPintuController extends Controller
         return response()->json([
             'message' => 'Sensor Pintu berhasil disimpan.',
             'data' => new SensorPintuResource($res),
+        ]);
+    }
+
+    public function code(Request $request) 
+    {
+        if(is_null($request->get('code'))) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ] , 404);
+        }
+
+        $data = $this->sensor_pintu_repo->getByCode($request->get('code'));
+
+        if(is_null($data)) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ] , 404);
+        }
+
+        $data->load(['pura']);
+        return new SensorPintuResource($data);
+    }
+
+    public function ping(Request $request)
+    {
+        if (is_null($request->get('code'))) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        $data = $this->sensor_pintu_repo->getByCode($request->get('code'));
+
+        if (is_null($data)) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
+
+        $sensor = $this->sensor_pintu_repo->update($data, [
+            'ping_at' => date('Y-m-d H:i:s'),
+            'gs_kode_sensor' => $request->get('status' , 0),
+        ]);
+
+        return response()->json([
+            'message' => 'Ping berhasil',
+            'data' => new SensorPintuResource($sensor)
         ]);
     }
 }

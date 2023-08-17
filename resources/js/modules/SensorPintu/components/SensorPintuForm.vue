@@ -47,12 +47,12 @@
                             placeholder="Cth: Sensor A"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="Token" prop="token">
+                    <!-- <el-form-item label="Token" prop="token">
                         <el-input
                             v-model="data_sensor_pintu.token"
                             placeholder="Masukkan token.."
                         ></el-input>
-                    </el-form-item>
+                    </el-form-item> -->
                     <div class="row">
                         <div class="col-md-6">
                              <el-form-item label="Sensor Pintu" prop="gs_sensor_pintu">
@@ -65,7 +65,7 @@
                                 </el-switch>
                             </el-form-item>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                              <el-form-item label="Guard State" prop="guard_state">
                                 <el-switch
                                     v-model="data_sensor_pintu.guard_state"
@@ -75,7 +75,7 @@
                                     inactive-text="Tidak Aktif">
                                 </el-switch>
                             </el-form-item>
-                        </div>
+                        </div> -->
                     </div>
                     <el-form-item>
                         <div class="text-center mt-3">

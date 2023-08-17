@@ -35,6 +35,10 @@ Route::prefix('sensor-pintu')->apiResource('sensor-pintu', SensorPintuController
     ]
 ]);
 
+Route::prefix('sensor-pintu')->group(function(){
+    Route::put('/' , [SensorPintuController::class , 'ping'])->name('api.sensor-pintu.ping');
+});
+
 Route::prefix('puras')->apiResource('pura', PuraController::class, ['as' => 'api']);
 
 Route::middleware('auth:sanctum')->group(function() {

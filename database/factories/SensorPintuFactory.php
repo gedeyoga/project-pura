@@ -27,8 +27,6 @@ class SensorPintuFactory extends Factory
             'gs_sensor_pintu' => $this->faker->randomElement(['0' , '1']), 
             'pura_id' => Pura::factory()->create()->id, 
             'gs_kode_sensor' => null, 
-            'guard_state' => $this->faker->randomElement(['0', '1']), 
-            'token' => $this->faker->ean13(),
         ];
     }
 }

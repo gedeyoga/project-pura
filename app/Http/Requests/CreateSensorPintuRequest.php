@@ -27,8 +27,6 @@ class CreateSensorPintuRequest extends FormRequest
             'gs_nama' => 'required', 
             'pura_id' => 'required',
             'gs_sensor_pintu' => 'required',
-            'guard_state' => 'required', 
-            'token' => 'required',
         ];
     }
 }

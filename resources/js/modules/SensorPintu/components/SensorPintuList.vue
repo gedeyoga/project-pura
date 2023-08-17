@@ -99,7 +99,12 @@
                             {{ scope.row.pura.pura_nama }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="Status" label="Status">
+                    <el-table-column prop="ping_at" label="Terakhir Ping">
+                        <template slot-scope="scope">
+                            {{ scope.row.ping_at | formatDateTime }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="Status" label="Status" width="100">
                         <template slot-scope="scope">
                             <el-switch
                                 v-model="scope.row.gs_sensor_pintu"

@@ -27,8 +27,8 @@ class UpdateSensorPintuRequest extends FormRequest
             'gs_nama' => 'required',
             'gs_sensor_pintu' => 'required',
             'pura_id' => 'required',
-            'guard_state' => 'required',
-            'token' => 'required',
+            // 'guard_state' => 'required',
+            // 'token' => 'required',
         ];
     }
 }
