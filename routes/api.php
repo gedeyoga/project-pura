@@ -31,7 +31,7 @@ Route::post('/alert-device', [SensorPintuController::class, 'alertDevice'])->nam
 
 Route::group(['prefix' => 'sensor-cctv', 'as' => 'api.sensor-cctv.'], function () {
     Route::get('/', [SensorCctvController::class, 'index'])->name('index');
-    Route::post('/', [SensorCctvController::class, 'store'])->name('store');
+    Route::post('/logs', [SensorCctvController::class, 'store'])->name('store');
     Route::get('/most-used', [SensorCctvController::class, 'mostUsed'])->name('most-used');
 });
 
