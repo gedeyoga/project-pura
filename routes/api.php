@@ -26,7 +26,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
 // Route::post('/register', [RegisterController::class, 'register'])->name('api.register');
 Route::post('/alert-device', [SensorPintuController::class, 'alertDevice'])->name('api.alertDevice');
-Route::post('/sensor-cctv', [SensorCctvController::class, 'store'])->name('api.sensor-cctv.store');
+// Route::post('/sensor-cctv', [SensorCctvController::class, 'store'])->name('api.sensor-cctv.store');
+
+
+Route::group(['prefix' => 'sensor-cctv', 'as' => 'api.sensor-cctv.'], function () {
+    Route::get('/', [SensorCctvController::class, 'index'])->name('index');
+    Route::post('/', [SensorCctvController::class, 'store'])->name('store');
+    Route::get('/most-used', [SensorCctvController::class, 'mostUsed'])->name('most-used');
+});
 
 Route::prefix('sensor-pintu')->apiResource('sensor-pintu', SensorPintuController::class, [
     'as' => 'api',
@@ -66,11 +73,6 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('/regencies', [WilayahController::class, 'regencies'])->name('regencies');
         Route::get('/districts', [WilayahController::class, 'districts'])->name('districts');
         Route::get('/villages', [WilayahController::class, 'villages'])->name('villages');
-    });
-
-    Route::group(['prefix' => 'sensor-cctv', 'as' => 'api.sensor-cctv.'], function () {
-        Route::get('/', [SensorCctvController::class, 'index'])->name('index');
-        Route::get('/most-used', [SensorCctvController::class, 'mostUsed'])->name('most-used');
     });
 
     //Permissions
