@@ -126,7 +126,7 @@ class SensorPintuController extends Controller
 
         $sensor = $this->sensor_pintu_repo->update($data, [
             'ping_at' => date('Y-m-d H:i:s'),
-            'gs_kode_sensor' => $request->get('status' , 0),
+            'gs_sensor_pintu' => $request->get('status' , 0),
         ]);
 
         return response()->json([
