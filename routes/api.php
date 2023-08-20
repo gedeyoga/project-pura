@@ -47,10 +47,13 @@ Route::prefix('sensor-pintu')->group(function(){
     Route::put('/' , [SensorPintuController::class , 'ping'])->name('api.sensor-pintu.ping');
 });
 
-Route::prefix('sensor-pintu-log')->group(function() {
-    Route::get('/', [SensorPintuLogController::class, 'index'])->name('api.sensor-pintu-log.history');
-    Route::post('/', [SensorPintuLogController::class, 'store'])->name('api.sensor-pintu-log.store');
-});
+Route::get('sensor-pintu-log', [SensorPintuLogController::class, 'index'])->name('api.sensor-pintu-log.history');
+Route::post('sensor-pintu-log', [SensorPintuLogController::class, 'store'])->name('api.sensor-pintu-log.store');
+
+// Route::prefix('sensor-pintu-log')->group(function() {
+//     Route::get('/', [SensorPintuLogController::class, 'index'])->name('api.sensor-pintu-log.history');
+//     Route::post('/', [SensorPintuLogController::class, 'store'])->name('api.sensor-pintu-log.store');
+// });
 
 Route::prefix('puras')->apiResource('pura', PuraController::class, ['as' => 'api']);
 

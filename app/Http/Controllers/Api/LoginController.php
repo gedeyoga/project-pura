@@ -22,6 +22,13 @@ class LoginController extends Controller
 
             $user->tokens()->delete();
 
+
+            if($request->get('fcm_token')) {
+                $user->update([
+                    'fcm_token' => $request->get('fcm_token'),
+                ]);
+            }
+
             return response()->json([
                 'message' => 'Login Berhasil!',
                 'data' => [
