@@ -117,18 +117,19 @@ class SensorPintuController extends Controller
         }
 
         $data = $this->sensor_pintu_repo->getByCode($request->get('code'));
-        
-        $phones = $data->pura->users->map(function($item){
-            $arr = explode(' ' , $item->phone);
-            $phone = implode('' , $arr);
-            return $item->phone ? $phone : '0';
-        })->toArray();
+    
 
         if (is_null($data)) {
             return response()->json([
                 'message' => 'Data tidak ditemukan'
             ], 404);
         }
+
+        $phones = $data->pura->users->map(function ($item) {
+            $arr = explode(' ', $item->phone);
+            $phone = implode('', $arr);
+            return $item->phone ? $phone : '0';
+        })->toArray();
 
         $sensor = $this->sensor_pintu_repo->update($data, [
             'ping_at' => date('Y-m-d H:i:s'),
