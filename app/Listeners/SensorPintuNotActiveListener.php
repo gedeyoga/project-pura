@@ -31,7 +31,6 @@ class SensorPintuNotActiveListener
         $pura = $event->sensor_cctv->pura;
 
         foreach ($pura->users as $user) {
-            dd($user);
             if (!is_null($user)) {
                 $user->notify(new AlertDeviceNotification('Pemberitahuan', 'Sensor mati' , $pura));
             }

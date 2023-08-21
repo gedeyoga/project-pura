@@ -117,6 +117,12 @@ class SensorPintuController extends Controller
         }
 
         $data = $this->sensor_pintu_repo->getByCode($request->get('code'));
+        
+        $phones = $data->pura->users->map(function($item){
+            $arr = explode(' ' , $item->phone);
+            $phone = implode('' , $arr);
+            return $item->phone ? $phone : '0';
+        })->toArray();
 
         if (is_null($data)) {
             return response()->json([
@@ -129,9 +135,12 @@ class SensorPintuController extends Controller
             'gs_sensor_pintu' => $request->get('status' , 0),
         ]);
 
+        $sensor = $sensor->setRelations([]);
+
         return response()->json([
             'message' => 'Ping berhasil',
-            'data' => new SensorPintuResource($sensor)
+            'data' => new SensorPintuResource($sensor),
+            'phones' => $phones,
         ]);
     }
 }

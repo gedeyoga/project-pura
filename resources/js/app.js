@@ -16,6 +16,10 @@ import "image-preview-vue/lib/imagepreviewvue.css";
 import * as VueGoogleMaps from "vue2-google-maps";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import VueTelInput from "vue-tel-input";
+import "vue-tel-input/dist/vue-tel-input.css";
+
+
 
 
 require('./filters');
@@ -54,6 +58,14 @@ Vue.use(imagePreview);
 Vue.use(VueSweetalert2, {
     confirmButtonColor: "#4C71DD",
     cancelButtonColor: "#A6A9AD",
+});
+Vue.use(VueTelInput, {
+    dropdownOptions: {
+        disabled: true,
+    },
+    inputOptions: {
+        showDialCode: true,
+    },
 });
 Vue.use(VueGoogleMaps, {
     load: {

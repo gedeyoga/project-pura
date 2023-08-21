@@ -53,6 +53,9 @@
                             ></el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item label="Telepon" prop="phone">
+                        <vue-tel-input v-model="data_user.phone"></vue-tel-input>
+                    </el-form-item>
 
                     <el-checkbox
                         v-if="$route.params.user"
@@ -134,6 +137,7 @@ export default {
                 change_password: false,
                 pura_id: "",
                 has_pura: false,
+                phone: "",
             },
             show_password: false,
             pura_list:[],

@@ -29,10 +29,17 @@ class SensorPintuActiveListener
     public function handle(SensorCctvActive $event)
     {
         $pura = $event->sensor_cctv->pura;
+        $cctv = $pura->sensor_cctv()->orderByDesc('id')->first();
+
+        $data = $cctv->toArray();
+
+        $data['cctv_photo'] = url($data['cctv_photo']);
+        $data['created_at'] = $cctv->created_at->format('Y-m-d H:i');
+        $data['pura'] = $pura->toArray();
 
         foreach ($pura->users as $user) {
             if(!is_null($user)) {
-                $user->notify(new AlertDeviceNotification('Pemberitahuan' , 'Sensor aktif' , $pura));
+                $user->notify(new AlertDeviceNotification('Pemberitahuan' , 'Sensor aktif' , $data));
             }
         }
     }

@@ -40,6 +40,9 @@
                             placeholder="Cth: permana0912@gmail.com"
                         ></el-input>
                     </el-form-item>
+                    <el-form-item label="Telepon" prop="phone">
+                       <vue-tel-input v-model="data_user.phone"></vue-tel-input>
+                    </el-form-item>
 
                     <el-checkbox
                         v-if="$route.params.user"
