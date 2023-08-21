@@ -39,7 +39,7 @@ class SensorCctvController extends Controller
             ] , 404);
         }
 
-        $data['pura_id'] = $sensor_pintu->id;
+        $data['pura_id'] = $sensor_pintu->pura->id;
 
         $pura = $this->sensor_cctv_repo->create($data);
 
