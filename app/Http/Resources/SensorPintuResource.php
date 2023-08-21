@@ -19,7 +19,7 @@ class SensorPintuResource extends JsonResource
             'pura_id' => $this->pura_id,
             'gs_kode_sensor' => $this->gs_kode_sensor,
             'gs_nama' => $this->gs_nama,
-            'gs_sensor_pintu' => '1',
+            'gs_sensor_pintu' => $this->gs_sensor_pintu,
             'ping_at' => $this->ping_at,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->created_at->format('Y-m-d H:i:s'),
