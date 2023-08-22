@@ -131,10 +131,15 @@ class SensorPintuController extends Controller
             return $item->phone ? $phone : '0';
         })->toArray();
 
-        $sensor = $this->sensor_pintu_repo->update($data, [
+        $data_sensor = [
             'ping_at' => date('Y-m-d H:i:s'),
-            'gs_sensor_pintu' => $request->get('status' , 0),
-        ]);
+        ];
+
+        if(!is_null($request->get('status'))) {
+            $data_sensor['gs_sensor_pintu'] = $request->get('status' , 0);
+        }
+
+        $sensor = $this->sensor_pintu_repo->update($data, $data_sensor);
 
         $sensor = $sensor->setRelations([]);
 
