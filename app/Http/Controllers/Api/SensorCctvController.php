@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSensorCctvRequest;
+use App\Http\Requests\CreateSensorCctvUploadImageRequest;
 use App\Http\Resources\SensorCctvResource;
 use App\Repositories\SensorCctvRepository;
 use App\Repositories\SensorPintuRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use function App\Helpers\uploadImage;
 
 class SensorCctvController extends Controller
 {
@@ -40,6 +43,33 @@ class SensorCctvController extends Controller
         }
 
         $data['pura_id'] = $sensor_pintu->pura->id;
+
+        $pura = $this->sensor_cctv_repo->create($data);
+
+        return response()->json([
+            'message' => 'Sensor Cctv berhasil ditambahkan!',
+            'data' => new SensorCctvResource($pura),
+        ]);
+    }
+
+    public function uploadCctv(CreateSensorCctvUploadImageRequest $request)
+    {
+        $data = $request->all();
+
+        $sensor_pintu = $this->sensor_pintu_repo->getByCode($request->get('gs_kode_sensor'));
+
+        if(is_null($sensor_pintu)) {
+            return response()->json([
+                'message' => 'Tidak ada cctv dengan kode ' . $request->get('gs_kode_sensor'),
+            ] , 404);
+        }
+
+        $data['pura_id'] = $sensor_pintu->pura->id;
+
+        if($request->hasFile('file')) {
+            $file = uploadImage($request->file('file'), 'detect');
+            $data['cctv_photo'] = url($file);
+        }
 
         $pura = $this->sensor_cctv_repo->create($data);
 
