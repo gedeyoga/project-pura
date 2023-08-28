@@ -26,10 +26,10 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         SensorCctvActive::class => [
-            SensorPintuActiveListener::class,
+            // SensorPintuActiveListener::class,
         ],
         SensorCctvNotActive::class => [
-            SensorPintuNotActiveListener::class
+            // SensorPintuNotActiveListener::class
         ],
     ];
 
