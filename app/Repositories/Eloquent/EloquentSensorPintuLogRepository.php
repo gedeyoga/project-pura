@@ -60,7 +60,7 @@ class EloquentSensorPintuLogRepository extends EloquentBaseRepository implements
         $sensor_log = $this->model->create($data);
 
         if(boolval($sensor_log->status)) {
-            event(new SensorPintuOpen());
+            event(new SensorPintuOpen($sensor_log));
         }else {
             event(new SensorPintuClosed());
         }

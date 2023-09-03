@@ -6,8 +6,10 @@ use App\Events\SensorCctvActive;
 use App\Events\SensorCctvNotActive;
 use App\Events\SensorPintuActive;
 use App\Events\SensorPintuNotActive;
+use App\Events\SensorPintuOpen;
 use App\Listeners\SensorPintuActiveListener;
 use App\Listeners\SensorPintuNotActiveListener;
+use App\Listeners\SensorPintuOpenListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
         SensorCctvNotActive::class => [
             SensorPintuNotActiveListener::class
         ],
+
+        SensorPintuOpen::class => [
+            SensorPintuOpenListener::class
+        ]
     ];
 
     /**
