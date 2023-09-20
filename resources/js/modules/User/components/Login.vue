@@ -7,15 +7,29 @@
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
-                            <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 d-none d-lg-block position-relative">
                                     <img class="w-100" src="/image/login-image.jpg" alt="">
+                                    <div class="position-absolute d-flex"  style="top: 25px; left: 35px">
+                                        <div>
+                                            <img style="border-radius: 8px;" :src="$url + '/image/logo.jpg'" width="30px" height="30px" alt="">
+                                        </div>
+                                        <div class="ml-3">
+                                            <div class="text-light" style="font-size: 12px;"><strong>PERLINDUNGAN <br> PRATIMA</strong></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="p-5">
-                                        <div class="text-center">
+                                    <div class="d-flex flex-column align-items-center justify-content-center pt-5">
+                                        <div class="mb-3">
+                                            <img :src="$url + '/image/logo.jpg'" class="rounded-circle" width="70px" height="70px" alt="">
+                                        </div>
+                                        <div class="mx-3 text-gray-900 text-center"><strong>PERLINDUNGAN <br> PRATIMA</strong></div>
+                                    </div>
+                                    <div class="px-5 mt-2 pb-5">
+                                        <div>
                                             <h1 class="h4 text-gray-900 mb-4">
-                                                Selamat datang
+                                                Login
                                             </h1>
                                         </div>
                                         <el-form
@@ -118,8 +132,8 @@
                                                 Login with Facebook
                                             </a>
                                         </form> -->
-                                        <hr />
-                                        <div class="text-center">
+                                        <!-- <hr /> -->
+                                        <!-- <div class="text-center">
                                             <a
                                                 class="small"
                                                 href="forgot-password.html"
@@ -132,7 +146,7 @@
                                                 href="register.html"
                                                 >Create an Account!</a
                                             >
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

@@ -5,7 +5,13 @@
         id="accordionSidebar"
     >
         <!-- Sidebar - Brand -->
-        <a
+        <div class="d-flex align-items-center justify-content-center my-4 mx-3">
+            <div class="sidebar-brand-icon ">
+                <img :src="$url + '/image/logo.jpg'" class="rounded-circle" width="40px" height="40px" alt="">
+            </div>
+            <div class="sidebar-brand-text mx-3 text-light text-sm d-md-block d-none"><strong>PERLINDUNGAN PRATIMA</strong></div>
+        </div>
+        <!-- <a
             class="sidebar-brand d-flex align-items-center justify-content-center"
             href="index.html"
         >
@@ -13,7 +19,7 @@
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-        </a>
+        </a> -->
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
@@ -110,13 +116,13 @@
         </template>
 
         <template
-            v-if="hasAccess('user.user-update') "
+            v-if="hasAccess('dashboard.dashboard-user') "
         >
         <!-- Heading -->
         <div class="sidebar-heading">Pengguna</div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item" v-if="hasAccess('user.user-update')">
+        <li class="nav-item" v-if="hasAccess('dashboard.dashboard-user')">
             <a
                 class="nav-link"
                 href="#"

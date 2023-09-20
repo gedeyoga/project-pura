@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserTransformer;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -44,7 +46,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
         $data = $request->all();
         if(!isset($data['role'])) {
@@ -92,14 +94,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->except(['password']);
 
         if (!isset($data['role'])) {
             $data['role'] = 'user';
         }
-
+        
         if ($request->get('change_password')) {
             $data['password'] = bcrypt($request->get('password'));
         }

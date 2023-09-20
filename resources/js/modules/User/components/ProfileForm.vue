@@ -94,6 +94,7 @@ export default {
                 email: "",
                 password: "",
                 change_password: false,
+                phone: "",
             },
             show_password: false,
             loading: false,
@@ -109,6 +110,9 @@ export default {
                 role: [{ required: true, message: "Role tidak boleh kosong!" }],
                 password: [
                     { required: true, message: "Password tidak boleh kosong!" },
+                ],
+                phone: [
+                    { required: true, message: "Telepon tidak boleh kosong!" },
                 ],
             },
 
@@ -144,8 +148,24 @@ export default {
                                 });
                                 this.$router.back();
                             })
-                            .catch((response) => {
+                            .catch((error) => {
                                 this.loading = false;
+                                if(error.response.status === 422) {
+                                    let response = error.response.data; 
+
+                                    if(response.errors) {
+                                        Object.keys(response.errors).forEach((key) => {
+                                            let fields = this.$refs['userForm'].fields;
+                                            for (let index = 0; index < fields.length; index++) {
+                                                if(fields[index].prop == key) {
+                                                    fields[index].validateState = 'error';
+                                                    fields[index].validateMessage = response.errors[key][0];
+                                                }
+                                                
+                                            }
+                                        })
+                                    }
+                                }
                             });
                     });
                 }
@@ -195,7 +215,11 @@ export default {
         if (typeof this.$route.params.user == "undefined") {
             this.show_password = true;
         } else {
-            this.fetchData();
+            this.$nextTick().then(() => {
+                setTimeout(() => {
+                    this.fetchData();
+                } , 400)
+            })
         }
     },
 };

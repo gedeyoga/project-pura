@@ -78,7 +78,7 @@
                     <hr class="mb-3">
 
                     <el-checkbox
-                        v-if="hasAccess('user.user-all')"
+                        v-if="hasAccess('user.user-all') && data_user.role && data_user.role != 'admin'"
                         v-model="data_user.has_pura"
                         >User memiliki pura ? 
                     </el-checkbox>
@@ -155,6 +155,9 @@ export default {
                 password: [
                     { required: true, message: "Password tidak boleh kosong!" },
                 ],
+                phone: [
+                    { required: true, message: "Telepon tidak boleh kosong!" },
+                ],
             },
 
             list_roles: [],
@@ -189,8 +192,24 @@ export default {
                                 });
                                 this.$router.push({ name: "users.index" });
                             })
-                            .catch((response) => {
+                            .catch((error) => {
                                 this.loading = false;
+                                if(error.response.status === 422) {
+                                    let response = error.response.data; 
+
+                                    if(response.errors) {
+                                        Object.keys(response.errors).forEach((key) => {
+                                            let fields = this.$refs['userForm'].fields;
+                                            for (let index = 0; index < fields.length; index++) {
+                                                if(fields[index].prop == key) {
+                                                    fields[index].validateState = 'error';
+                                                    fields[index].validateMessage = response.errors[key][0];
+                                                }
+                                                
+                                            }
+                                        })
+                                    }
+                                }
                             });
                     });
                 }

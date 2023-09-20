@@ -20,7 +20,7 @@
             </div>
             <div class="card-body">
                 <div class="row mb-3 align-items-end">
-                    <div class="col-md-3" v-if="hasAccess('sensor_cctv.sensor_cctv.all')">
+                    <div class="col-md-3" v-if="hasAccess('sensor_cctv.sensor_cctv-all')">
                         <label for=""><small>Filter Pura</small></label>
                         <el-select v-model="filter.pura_id" @change="fetchData" placeholder="Pilih Pura" filterable clearable>
                             <el-option
@@ -237,7 +237,7 @@ export default {
 
     mounted() {
 
-        if(this.hasAccess('sensor_cctv.sensor_cctv.all')) {
+        if(this.hasAccess('sensor_cctv.sensor_cctv-all')) {
             this.fetchPura();
         } else {
             if(this.user.pura.length > 0) {

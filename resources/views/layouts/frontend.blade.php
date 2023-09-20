@@ -26,8 +26,11 @@
     @routes
 
     <!-- Scripts -->
-    <script src="{{ asset(mix('js/app-frontend.js')) }}" defer></script>
-    <script src="{{ asset(mix('js/app-frontend-vendor.js')) }}" defer></script>
+    <!-- <script src="{{ asset(mix('js/app-frontend.js')) }}" defer></script>
+    <script src="{{ asset(mix('js/app-frontend-vendor.js')) }}" defer></script> -->
+    <script defer src="{{mix('/js/manifest.js')}}"></script>
+    <script defer src="{{mix('/js/vendor.js')}}"></script>
+    <script defer src="{{mix('/js/app-frontend.js')}}"></script>
 </body>
 
 </html>
