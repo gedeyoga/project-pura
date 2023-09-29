@@ -53,7 +53,7 @@ class LoginController extends Controller
 
         return response()->json([
             'message' => 'Logout berhasil',
-            'link' => route('auth.login'),
+            'link' => route('login'),
         ]);
     }
 }
