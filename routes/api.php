@@ -62,6 +62,7 @@ Route::prefix('message-queue')->group(function() {
 Route::prefix('puras')->apiResource('pura', PuraController::class, ['as' => 'api']);
 
 Route::middleware('auth:sanctum')->group(function() {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('api.logout');
     //Dashboard
     Route::group(['prefix' => 'dashboard', 'as' => 'api.dashboard'] , function() {
         Route::get('/user', [DashboardController::class , 'dashboardUser'])->name('.user');

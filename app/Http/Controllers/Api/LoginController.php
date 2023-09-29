@@ -44,19 +44,19 @@ class LoginController extends Controller
         } 
     }
 
-    // public function logout(Request $request)
-    // {
-    //     auth()->user()->tokens()->delete();
+    public function logout(Request $request)
+    {
+        // auth()->user()->tokens()->delete();
 
-    //     Auth::guard()->logout();
+        Auth::guard()->logout();
 
-    //     $request->session()->invalidate();
+        $request->session()->invalidate();
 
-    //     $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
-    //     return response()->json([
-    //         'message' => 'Logout berhasil',
-    //         'link' => route('auth.login'),
-    //     ]);
-    // }
+        return response()->json([
+            'message' => 'Logout berhasil',
+            'link' => route('auth.login'),
+        ]);
+    }
 }

@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /public/upload
+/public/detect
+/public/js/*
+/public/css/*
 /upload
 /storage/*.key
 /vendor
@@ -11,4 +14,4 @@
 Homestead.json
 Homestead.yaml
 npm-debug.log
-yarn-error.log
+yarn-error.log 
