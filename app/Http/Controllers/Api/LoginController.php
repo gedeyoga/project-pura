@@ -46,6 +46,8 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+
+        auth()->user()->update(['fcm_token' => null]);
         auth()->user()->tokens()->delete();
 
         // delete the current token that was used for the request
