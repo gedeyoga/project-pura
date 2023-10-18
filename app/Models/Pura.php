@@ -12,7 +12,7 @@ class Pura extends Model
     protected $table = 'pura';
 
     protected $fillable = [
-        'pura_nama' , 'pura_alamat' , 'pura_lat' , 'pura_lng', 'jp_id' , 'kel_id' , 'pura_ip',
+        'pura_nama' , 'pura_alamat' , 'pura_lat' , 'pura_lng', 'jp_id' , 'kel_id' , 'pura_ip', 'notification_cctv'
     ];
 
     public function users()

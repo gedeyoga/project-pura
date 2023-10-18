@@ -5,11 +5,14 @@ namespace App\Listeners;
 use App\Events\SensorCctvActive;
 use App\Events\SensorPintuActive;
 use App\Notifications\AlertDeviceNotification;
+use App\Traits\NotificationTrait;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 class SensorPintuActiveListener
 {
+
+    use NotificationTrait;
     /**
      * Create the event listener.
      *
@@ -37,9 +40,11 @@ class SensorPintuActiveListener
         $data['created_at'] = $cctv->created_at->format('Y-m-d H:i');
         $data['pura'] = $pura->toArray();
 
-        foreach ($pura->users as $user) {
-            if(!is_null($user)) {
-                $user->notify(new AlertDeviceNotification('Pemberitahuan' , 'Sensor aktif' , $data));
+        if($this->checkNotificationCctv($pura)) {
+            foreach ($pura->users as $user) {
+                if (!is_null($user)) {
+                    $user->notify(new AlertDeviceNotification('Pemberitahuan', 'Sensor aktif', $data));
+                }
             }
         }
     }

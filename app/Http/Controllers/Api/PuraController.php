@@ -128,4 +128,34 @@ class PuraController extends Controller
             'message' => 'Pura berhasil dihapus',
         ]);
     }
+
+    public function stateNotification(Request $request) 
+    {
+        $request->validate([
+            'notification_type' => 'required|string',
+            'status' => 'required|numeric',
+        ]);
+
+        $pura = $request->user()->pura()->first();
+
+        if(!is_null($request->get('pura_id'))) {
+            $pura = $this->pura_repo->find($request->get('pura_id'));
+        }
+
+        if (is_null($pura)) {
+            return response()->json([
+                'message' => 'Data pura tidak ditemukan',
+            ], 404);
+        }
+                
+        if($request->get('notification_type') == 'sensor_cctv') {
+            $this->pura_repo->update($pura, [
+                'notification_cctv' => $request->get('status'),
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Berhasil memperbaharui notifikasi!',
+        ]);
+    }
 }

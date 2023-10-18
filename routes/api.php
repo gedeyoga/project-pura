@@ -94,4 +94,6 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/permission', [RoleController::class, 'permissionStore'])->name('permission.store');
         Route::get('/permission', [RoleController::class, 'permissionList'])->name('permission.list');
     });
+
+    Route::post('/puras/notification' , [PuraController::class , 'stateNotification'])->name('api.notification.state');
 });

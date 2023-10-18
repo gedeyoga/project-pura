@@ -94,14 +94,28 @@
                             {{ scope.row.jenis_pura.jp_nama }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="pura_ip" label="IP Address">
+                    <!-- <el-table-column prop="pura_ip" label="IP Address">
                         <template slot-scope="scope">
                             {{ scope.row.pura_ip }}
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column prop="kelurahan.name" label="Kelurahan">
                         <template slot-scope="scope">
                             {{ scope.row.kelurahan.name }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column width="250" prop="notification" label="Notifikasi">
+                        <template slot-scope="scope">
+                            <el-switch
+                                style="display: block"
+                                v-model="scope.row.notification_cctv"
+                                active-color="#13ce66"
+                                inactive-color="#ff4949"
+                                :active-value="1"
+                                :inactive-value="0"
+                                @change="notificationState('sensor_cctv' , scope.row)"
+                                :active-text="'Notifikasi CCTV'">
+                            </el-switch>
                         </template>
                     </el-table-column>
                     <el-table-column prop="actions" label="Aksi">
@@ -275,6 +289,25 @@ export default {
                     this.jenis_pura_list = response.data.data;
                 })
         },
+
+        notificationState( notification_type , pura) {
+            axios
+                .post(route('api.notification.state') , {
+                    pura_id: pura.id,
+                    notification_type: notification_type,
+                    status: pura.notification_cctv
+                })
+                .then((response) => {
+                    this.$notify({
+                        title: "Pemberitahuan",
+                        message: response.data.message,
+                        type: "success",
+                    });
+                })
+                .catch((err) => {
+                    console.log(err.statusCode);
+                })
+        }
     },
 
     mounted() {
