@@ -5,14 +5,14 @@ namespace App\Listeners;
 use App\Events\SensorCctvActive;
 use App\Events\SensorPintuActive;
 use App\Notifications\AlertDeviceNotification;
-use App\Traits\NotificationTrait;
+use App\Traits\NotificationTraits;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 class SensorPintuActiveListener
 {
 
-    use NotificationTrait;
+    use NotificationTraits;
     /**
      * Create the event listener.
      *

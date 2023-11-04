@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\Pura;
 
-trait NotificationTrait {
+trait NotificationTraits {
 
     public function checkNotificationCctv(Pura $pura)
     {
