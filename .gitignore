@@ -3,7 +3,11 @@
 /public/storage
 /public/upload
 /public/detect
-/public/js/*
+/public/js/*.js
+/public/js/*.map
+/public/js/*.txt
+/public/css/*.css
+/public/mix-manifest.json
 /public/css/*
 /upload
 /storage/*.key
