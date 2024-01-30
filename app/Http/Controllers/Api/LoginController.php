@@ -20,7 +20,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
 
-            $user->tokens()->delete();
+            // $user->tokens()->delete();
 
 
             if($request->get('fcm_token')) {
@@ -48,10 +48,10 @@ class LoginController extends Controller
     {
 
         auth()->user()->update(['fcm_token' => null]);
-        auth()->user()->tokens()->delete();
+        // auth()->user()->tokens()->delete();
 
         // delete the current token that was used for the request
-        $request->user()->currentAccessToken()->delete();
+        // $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'message' => 'Logout berhasil',
