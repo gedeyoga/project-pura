@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="mx-3 text-gray-900 text-center"><strong>PERLINDUNGAN <br> PRATIMA</strong></div>
                                     </div>
-                                    <div class="px-5 mt-2 pb-5">
+                                    <div class="px-5 mt-2 pb-4">
                                         <div>
                                             <h1 class="h4 text-gray-900 mb-4">
                                                 Login
@@ -71,6 +71,15 @@
                                                 >Masuk</el-button
                                             >
                                         </el-form>
+
+                                        <div class="row mt-3">
+                                            <div class="col-lg-6 mb-2 lg:mb-0">
+                                                <el-button size="small" plain style="width: 100%;" icon="el-icon-wallet" @click="handleClick('https://drive.google.com/file/d/1YwM9pWYVgLKVkb0XL2eRUuvQRmDuJJsL/view')"><span class="ml-2">Pengadaan Biaya</span></el-button>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <el-button size="small" plain style="width: 100%;" icon="fa fa-wrench" @click="handleClick('https://drive.google.com/file/d/1YwM9pWYVgLKVkb0XL2eRUuvQRmDuJJsL/view')"><span class="ml-2">Panduan Teknis</span></el-button>
+                                            </div>
+                                        </div>
 
                                         <!-- <form class="user">
                                             <div class="form-group">
@@ -227,6 +236,10 @@ export default {
                 }
             });
         },
+
+        handleClick(link) {
+            window.open(link);
+        }
     },
 };
 </script>
